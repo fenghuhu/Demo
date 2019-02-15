@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<style type="text/css">
+			*{
+				margin: 0;
+				padding: 0;
+			}
+			.tr{
+				width: 50%;
+				border: 1px solid #666666;
+				display: flex;
+				background-color: #999999;
+				margin: 0 auto;
+			}
+			.list{
+				width: 100%;
+				margin: 0 auto;
+				height: 320px;
+				/*overflow-y: scroll;*/
+			}
+			.table-tr{
+				width: 50%;
+				border: 1px solid #666666;
+				display: flex;
+				margin: 0 auto;
+			}
+			.table-tr div{
+			border-left: 1px solid #666666;
+			 width: 20%;
+			 height: 40px;
+			 line-height: 40px;
+			 text-align: center;
+			}
+			.table-tr:nth-child(2n+1){
+				background-color: #eeeeee;
+			}
+			.table-tr:nth-child(2n){
+				background-color:#ffffff;
+			}
+			.tr div{
+			 border-left: 1px solid #666666;
+			 width: 20%;
+			 height: 40px;
+			 line-height: 40px;
+			 text-align: center;
+			}
+			.del{
+				cursor: pointer;
+			}
+		</style>
+	</head>
+	<body>
+		<script src="js/art-template.js"></script>
+		<script src="js/jquery.min.js"></script>
+		<div class="tr">
+			<div>工号</div>
+			<div>姓名</div>
+			<div>渠道</div>
+			<div>状态</div>
+			<div>操作</div>
+		</div>
+		<div class="list">
+			<script type="text/html" id="template">
+				{{each person}}
+				<div class="table-tr">
+				<div class="id">{{$value.id}}</div>
+                <div>{{$value.name}}</div>
+                <div>{{$value.way}}</div>
+                <div>{{$value.status}}</div>
+                {{if $value.del === "强制签出"}}
+                <div class="del">{{$value.del}}</div>
+                {{else}}
+                <div>{{$value.del}}</div>
+                {{/if}}
+                </div>
+				{{/each}}
+		</script>
+		</div>
+		<script>
+			var data ={
+			person:[
+			{id:"111",name:"封虎1",way:"phone1",status:"在线1",del:"强制签出"},
+			{id:"222",name:"封虎2",way:"phone2",status:"在线2",del:""},
+			{id:"333",name:"封虎3",way:"phone3",status:"在线3",del:"强制签出"},
+			{id:"444",name:"封虎4",way:"phone4",status:"在线4",del:""},
+			{id:"111",name:"封虎1",way:"phone1",status:"在线1",del:"强制签出"},
+			{id:"222",name:"封虎2",way:"phone2",status:"在线2",del:""},
+			{id:"333",name:"封虎3",way:"phone3",status:"在线3",del:"强制签出"},
+			{id:"444",name:"封虎4",way:"phone4",status:"在线4",del:""},
+			{id:"444",name:"封虎4",way:"phone4",status:"在线4",del:""},
+			{id:"444",name:"封虎4",way:"phone4",status:"在线4",del:""}
+			]
+			};
+			var html = template("template", data); 
+			console.log(html);
+			$(function(){
+				$(".list").html(html);
+				$(".list").on("click",".del",function(){
+					//获取被点击的id ---
+					var result = $(this).html();
+                    var id = $(this).prev().prev().prev().prev().text();
+                    alert(result+"-"+id);
+//					alert("确定要删除么？");
+//                     $ajax({
+//                     	url:"",
+//                     	type:"",
+//                     	dataType:"json",
+//                     	data:{id:"Id"},
+//                     	success:function(){
+//                     		//成功后直接刷新数据
+//                     	}
+//                     })
+				})
+			})
+		</script>
+	</body>
+</html>
